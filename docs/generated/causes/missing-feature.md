@@ -2,7 +2,7 @@
 
 requested functionality does not exist (feeds feature-request kind)
 
-> Generated from database commit `37e1jc5hc9ma`. 57 analysed issues carry this cause. [Back to index](../index.md)
+> Generated from database commit `v3tn80u85q2s`. 57 analysed issues carry this cause. [Back to index](../index.md)
 
 | Issue | State | Title | Summary |
 |---|---|---|---|

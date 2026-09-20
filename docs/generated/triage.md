@@ -1,6 +1,6 @@
 # Triage queue: issues a PR could close
 
-> Generated from database commit `37e1jc5hc9ma`. 66 issues with `pr_potential` of `code-fix` or `docs-fix`.
+> Generated from database commit `v3tn80u85q2s`. 67 issues with `pr_potential` of `code-fix` or `docs-fix`.
 
 | Issue | Potential | Layers | Summary |
 |---|---|---|---|
@@ -24,6 +24,7 @@
 | [#223](https://github.com/sezanzeb/input-remapper/issues/223) | code-fix | reader | Keys on Jabra headphones not detected: Jabra headphone media buttons not detected in key-mapper UI. Buttons produce a down event immediately followed by a release event (very short press). The reader may miss them beca… |
 | [#224](https://github.com/sezanzeb/input-remapper/issues/224) | code-fix | daemon | Getting the currently injected profile via key-mapper-contr…: Get the currently active injected profile via key-mapper-control. Companion to #203 for auto-switching scripts. Design note added to daemon. |
 | [#246](https://github.com/sezanzeb/input-remapper/issues/246) | code-fix | config | Improve tests: Test infrastructure improvement issue: toolbox module, cleanup helpers, timing-tolerant tests, integration vs unit split. jonasBoss proposed improvements. Long ongoing discussion… |
+| [#1](https://github.com/sezanzeb/input-remapper/issues/1) | docs-fix | install | AUR package isn't working: AUR packaging crash at startup due to python-evdev/rich library version mismatch on Manjaro; maintainer pushed a fix the same day. |
 | [#5](https://github.com/sezanzeb/input-remapper/issues/5) | docs-fix | install | Can't install on pop!_os 20.10: Pop!_OS install failed: python3-evdev not pulled as a dependency. Resolved with apt -f install. Maintainer said README would be updated. PR potential: dependency note in README. |
 | [#11](https://github.com/sezanzeb/input-remapper/issues/11) | docs-fix | install | how to remove: Empty issue body; user wanted to know how to uninstall. Maintainer replied with removal commands for apt, pacman, pip. Documentation gap. |
 | [#16](https://github.com/sezanzeb/input-remapper/issues/16) | docs-fix | macro | 3 parameter macro: User wanted three-modifier macro (ctrl+alt+down) and got a syntax error; maintainer explained nested macro syntax m(ctrl, m(alt, k(down))). Classic docs gap; nested syntax was not… |

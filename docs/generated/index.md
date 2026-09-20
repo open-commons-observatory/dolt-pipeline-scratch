@@ -1,6 +1,6 @@
 # input-remapper: analysis report
 
-> Generated from database commit `37e1jc5hc9ma` ("incremental change 3", 2026-09-20). Do not edit by hand.
+> Generated from database commit `v3tn80u85q2s` ("triage: #1 pr_potential unknown -> docs-fix", 2026-09-20). Do not edit by hand.
 
 | Corpus | Count |
 |---|---|
@@ -12,8 +12,8 @@
 
 ```mermaid
 pie showData title PR potential
-    "unknown" : 89
-    "docs-fix" : 46
+    "unknown" : 88
+    "docs-fix" : 47
     "code-fix" : 20
     "needs-design" : 18
     "upstream-dep" : 13

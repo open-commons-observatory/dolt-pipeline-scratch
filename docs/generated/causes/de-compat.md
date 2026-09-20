@@ -2,7 +2,7 @@
 
 desktop environment compatibility (KDE, GNOME, XFCE quirk)
 
-> Generated from database commit `37e1jc5hc9ma`. 21 analysed issues carry this cause. [Back to index](../index.md)
+> Generated from database commit `v3tn80u85q2s`. 21 analysed issues carry this cause. [Back to index](../index.md)
 
 | Issue | State | Title | Summary |
 |---|---|---|---|
