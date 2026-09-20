@@ -1,0 +1,11 @@
+# Cause: `{{ param }}`
+
+{{ definition[0].doc if definition else "(no definition in taxonomy)" }}
+
+> Generated from database commit `{{ db[0].hash }}`. {{ issues | length }} analysed issues carry this cause. [Back to index](../index.md)
+
+| Issue | State | Title | Summary |
+|---|---|---|---|
+{% for r in issues %}
+| [#{{ r.n }}](https://github.com/{{ vars.upstream }}/issues/{{ r.n }}) | {{ r.state }} | {{ r.title | cell(70) }} | {{ r.summary | cell(220) }} |
+{% endfor %}

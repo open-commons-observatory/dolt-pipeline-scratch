@@ -1,0 +1,55 @@
+name: Build docs from database
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'tools/**', 'mkdocs.yml', 'requirements.txt', '.github/workflows/docs.yml']
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+env:
+  DOLTGRES_VERSION: v1.3.3
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with: { python-version: '3.12', cache: pip }
+      - run: pip install -r requirements.txt
+      - name: Install Doltgres
+        run: |
+          curl -fsSL -o dg.tgz "https://github.com/dolthub/doltgresql/releases/download/${DOLTGRES_VERSION}/doltgresql-linux-amd64.tar.gz"
+          tar xzf dg.tgz && echo "$PWD/doltgresql-linux-amd64/bin" >> "$GITHUB_PATH"
+      - name: Start Doltgres and clone the database from this repo (hidden ref refs/dolt/data)
+        env: { PGPASSWORD: password }
+        run: |
+          mkdir -p "$RUNNER_TEMP/dg"
+          nohup doltgres -data-dir "$RUNNER_TEMP/dg" > "$RUNNER_TEMP/dg.log" 2>&1 &
+          for i in $(seq 1 30); do psql -h 127.0.0.1 -U postgres -d postgres -Atc 'select 1' >/dev/null 2>&1 && break; sleep 1; done
+          psql -h 127.0.0.1 -U postgres -d postgres -Atc "SELECT dolt_clone('https://github.com/${{ github.repository }}.git','ba');"
+          psql -h 127.0.0.1 -U postgres -d ba -Atc "SELECT 'database commit: ' || substr(commit_hash,1,12) || ' ' || message FROM dolt_log LIMIT 1;"
+      - name: Render Markdown from the database
+        run: python tools/render.py docs/generated
+      - name: Check the committed docs match the database (deterministic output)
+        run: |
+          git status --porcelain docs/generated
+          test -z "$(git status --porcelain docs/generated)" || { echo "::error::committed docs/generated differs from a fresh render"; git --no-pager diff --stat docs/generated; exit 1; }
+      - name: Build HTML
+        run: zensical build
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with: { path: _site }
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

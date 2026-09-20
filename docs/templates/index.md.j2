@@ -1,0 +1,36 @@
+# {{ vars.project }}: analysis report
+
+> Generated from database commit `{{ db[0].hash }}` ("{{ db[0].message }}", {{ db[0].date }}). Do not edit by hand.
+
+| Corpus | Count |
+|---|---|
+| Issues and PRs | {{ totals[0].total }} ({{ totals[0].prs }} are PRs) |
+| Analysed so far | {{ totals[0].analysed }} |
+| Tags applied | {{ totals[0].tags }} |
+
+## PR potential of analysed issues
+
+```mermaid
+pie showData title PR potential
+{% for r in by_potential %}
+    "{{ r.value }}" : {{ r.n }}
+{% endfor %}
+```
+
+## Causes (one page each, generated from the database)
+
+| Cause | Issues |
+|---|---|
+{% for r in by_cause %}
+| [{{ r.value }}](causes/{{ r.value }}.md) | {{ r.n }} |
+{% endfor %}
+
+## Layers
+
+| Layer | Issues |
+|---|---|
+{% for r in by_layer %}
+| {{ r.value }} | {{ r.n }} |
+{% endfor %}
+
+See the [triage queue](triage.md) for issues a docs or code change could close.

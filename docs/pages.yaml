@@ -1,0 +1,15 @@
+# Describes every generated page: which template, which SQL queries feed it, where it is written.
+vars:
+  project: input-remapper
+  upstream: sezanzeb/input-remapper
+pages:
+  - template: index.md.j2
+    out: index.md
+    queries: {totals: totals.sql, by_potential: by_potential.sql, by_cause: by_cause.sql, by_layer: by_layer.sql, db: db_commit.sql}
+  - template: triage.md.j2
+    out: triage.md
+    queries: {rows: triage.sql, db: db_commit.sql}
+  - template: cause.md.j2          # rendered ONCE PER ROW of cause_values.sql; the row value is bound as %(value)s
+    out: causes/{value}.md
+    for_each: {query: cause_values.sql}
+    queries: {definition: cause_def.sql, issues: cause_issues.sql, db: db_commit.sql}

@@ -1,0 +1,9 @@
+# Triage queue: issues a PR could close
+
+> Generated from database commit `{{ db[0].hash }}`. {{ rows | length }} issues with `pr_potential` of `code-fix` or `docs-fix`.
+
+| Issue | Potential | Layers | Summary |
+|---|---|---|---|
+{% for r in rows %}
+| [#{{ r.n }}](https://github.com/{{ vars.upstream }}/issues/{{ r.n }}) | {{ r.pr_potential }} | {{ r.layers | cell }} | {{ r.title | cell(60) }}: {{ r.summary | cell(180) }} |
+{% endfor %}
